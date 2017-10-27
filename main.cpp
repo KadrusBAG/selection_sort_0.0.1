@@ -4,13 +4,17 @@
 
 using namespace std;
 
-void read(double *array, unsigned int size){
+bool read(double *array, unsigned int size){
     string stroka;
     getline(cin, stroka);
     istringstream stream(stroka);
     for(unsigned int i=0; i<size; ++i){
-        stream>>array[i];
+        if(!(stream>>array[i])){
+            cout<<"error"<<endl;
+            return false;
+        }
     }
+    return true;
 }
 
 void selection_sort(double *array, unsigned int size){
@@ -34,10 +38,12 @@ int main(){
     cin>>size;
     cin.get();
     double *array=new double[size];
-    read(array, size);
-    selection_sort(array, size);
-    for(unsigned int i=0; i<size; ++i){
-        cout<<array[i]<<" ";
+    if(read(array, size)){
+        selection_sort(array, size);
+        for(unsigned int i=0; i<size; ++i){
+            cout<<array[i]<<" ";
+        }
     }
+    delete[]array;
     return 0;
 }
